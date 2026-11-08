@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Online Order System</title>
+  <link rel="stylesheet" href="css/admin.css?v=30">
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div class="topbar-left brand-hero">
+        <div class="page-badge">Administration</div>
+
+        <div class="hero-brand-block">
+          <img src="images/logo_new.png" alt="Douglas Logo" class="hero-logo">
+          <div class="hero-brand-text">
+            <h1>Douglas Online Order Sdn. Bhd.</h1>
+            <p>Manage payments, products, orders, users, blacklist records, refunds, and profile settings.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="topbar-right-card">
+        <div class="brand-mini">
+          <img src="images/logo_new.png" alt="Douglas Logo">
+          <div class="brand-mini-text">
+            <strong>Douglas Online Order Sdn. Bhd.</strong>
+          </div>
+        </div>
+
+        <div id="userHeaderBox" class="user-header-box">
+          <img id="headerAvatar" src="" alt="avatar">
+          <div class="user-header-info">
+            <div id="userGreeting">Loading admin...</div>
+            <small>Administrative access</small>
+          </div>
+        </div>
+
+        <div class="topbar-actions">
+          <button id="themeToggleBtn" type="button" class="theme-btn">Appearance</button>
+          <button id="logoutBtn" type="button" class="logout-btn">Sign Out</button>
+        </div>
+      </div>
+    </header>
+
+    <nav class="tabs">
+      <button class="tab-btn active" data-tab="checkingPaymentTab">Payment Review</button>
+      <button class="tab-btn" data-tab="refundRequestTab">Refund Requests</button>
+      <button class="tab-btn" data-tab="checkingProductsTab">Products</button>
+      <button class="tab-btn" data-tab="orderSystemTab">Store Preview</button>
+      <button class="tab-btn" data-tab="orderStatusTab">Order Status</button>
+      <button class="tab-btn" data-tab="orderHistoryTab">Order History</button>
+      <button class="tab-btn" data-tab="searchTab">Search Orders</button>
+      <button class="tab-btn" data-tab="userListTab">Users</button>
+      <button class="tab-btn" data-tab="blacklistTab">Blacklist</button>
+      <button class="tab-btn" data-tab="profileTab">Profile</button>
+    </nav>
+
+    <main>
+      <section id="checkingPaymentTab" class="tab-content active">
+        <div class="section-title">
+          <div>
+            <div class="section-kicker">Finance</div>
+            <h2>Payment Review</h2>
+            <p>Approve or reject uploaded payment proofs.</p>
+          </div>
+        </div>
+
+        <div class="content-card">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Customer ID</th>
+                  <th>Product</th>
+                  <th>Qty</th>
+                  <th>Total</th>
+                  <th>Uploaded At</th>
+                  <th>Proof</th>
+                  <th>Action</th>
+                  <th>Details</th>
+                </tr>
+              </thead>
+              <tbody id="pendingPaymentBody">
+                <tr><td colspan="9">Loading...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="refundRequestTab" class="tab-content">
+        <div class="section-title">
+          <div>
+            <div class="section-kicker">Refunds</div>
+            <h2>Refund Requests</h2>
+            <p>Manage refund submissions from customers.</p>
+          </div>
+        </div>
+
+        <div class="content-card">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Customer ID</th>
+                  <th>Total Items</th>
+                  <th>Total Amount</th>
+                  <th>Refund Uploaded At</th>
+                  <th>Refund Proof</th>
+                  <th>Action</th>
+                  <th>Details</th>
+                </tr>
+              </thead>
+              <tbody id="refundRequestBody">
+                <tr><td colspan="9">Loading...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="checkingProductsTab" class="tab-content">
+        <div class="section-title">
+          <div>
+            <div class="section-kicker">Catalog</div>
+            <h2>Products</h2>
+            <p>Manage your product list, media, stock, and ratings.</p>
+          </div>
+        </div>
+
+        <div class="content-card">
+          <form id="productForm" class="product-form" enctype="multipart/form-data">
+            <input type="hidden" id="productId" name="product_id">
+
+            <div class="form-grid">
+              <div>
+                <label for="productName">Product Name</label>
+                <input type="text" id="productName" name="product_name" required>
+              </div>
+
+              <div>
+                <label for="productPrice">Product Price</label>
+                <input type="number" step="0.01" min="0" id="productPrice" name="product_price" required>
+              </div>
+
+              <div>
+                <label for="productRating">Product Rating</label>
+                <input type="number" step="0.1" min="0.1" max="9.9" id="productRating" name="product_rating" required>
+              </div>
+
+              <div>
+                <label for="productStock">Product Stock</label>
+                <input type="number" step="1" min="0" id="productStock" name="product_stock" required>
+              </div>
+
+              <div>
+                <label for="publishDate">Publish Date</label>
+                <input type="date" id="publishDate" name="publish_date" required>
+              </div>
+
+              <div>
+                <label for="productCategory">Product Category</label>
+                <input type="text" id="productCategory" name="category" placeholder="e.g. Electronics" required>
+              </div>
+
+              <div class="full-span">
+                <label for="productMedia">Product Media</label>
+                <input
+                  type="file"
+                  id="productMedia"
+                  name="media_files[]"
+                  accept="image/*,video/mp4,video/webm,video/ogg,video/quicktime"
+                  multiple
+                >
+                <small>Upload multiple images or videos. The first image will be used as the cover image.</small>
+              </div>
+            </div>
+
+            <div id="mediaPreviewWrap" class="media-preview-wrap"></div>
+
+            <div class="form-actions">
+              <button type="submit" class="primary-btn">Save Product</button>
+              <button type="button" id="resetProductFormBtn" class="secondary-btn">Reset</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="content-card">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Cover</th>
+                  <th>Name</th>
+                  <th>Total</th>
+                  <th>Category</th>
+                  <th>Rating</th>
+                  <th>Stock</th>
+                  <th>Publish Date</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="adminProductTableBody">
+                <tr><td colspan="9">Loading...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="orderSystemTab" class="tab-content">
+        <div class="section-title">
+          <div>
+            <div class="section-kicker">Preview</div>
+            <h2>Store Preview</h2>
+            <p>View how products appear in the storefront.</p>
+          </div>
+        </div>
+
+        <div id="adminProductList" class="product-grid"></div>
+      </section>
+
+      <section id="orderStatusTab" class="tab-content">
+        <div class="section-title">
+          <div>
+            <div class="section-kicker">Operations</div>
+            <h2>Order Status</h2>
+            <p>Track active order records and customer order states.</p>
+          </div>
+        </div>
+
+        <div class="content-card">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Customer ID</th>
+                  <th>Product</th>
+                  <th>Qty</th>
+                  <th>Status</th>
+                  <th>Ordered At</th>
+                  <th>Details</th>
+                </tr>
+              </thead>
+              <tbody id="adminStatusBody">
+                <tr><td colspan="7">Loading...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="orderHistoryTab" class="tab-content">
+        <div class="section-title">
+          <div>
+            <div class="section-kicker">Archive</div>
+            <h2>Order History</h2>
+            <p>Review approved and completed order history.</p>
+          </div>
+        </div>
+
+        <div class="content-card">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Customer ID</th>
+                  <th>Uploaded Time</th>
+                  <th>Approved Time</th>
+                  <th>Total Amount</th>
+                  <th>Details</th>
+                </tr>
+              </thead>
+              <tbody id="adminHistoryBody">
+                <tr><td colspan="6">Loading...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="searchTab" class="tab-content">
+        <div class="section-title">
+          <div>
+            <div class="section-kicker">Search</div>
+            <h2>Search Orders</h2>
+            <p>Search by Order ID, Customer ID, or Customer Name.</p>
+          </div>
+        </div>
+
+        <div class="content-card">
+          <div class="form-grid single-search-grid">
+            <div>
+              <label for="adminSearchKeyword">Keyword</label>
+              <input type="text" id="adminSearchKeyword" placeholder="Order ID / Customer ID / Customer Name">
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" id="adminSearchBtn" class="primary-btn">Search</button>
+            <button type="button" id="adminSearchResetBtn" class="secondary-btn">Reset</button>
+          </div>
+        </div>
+
+        <div class="content-card">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Customer Name</th>
+                  <th>Customer ID</th>
+                  <th>Total Amount</th>
+                  <th>Status</th>
+                  <th>Ordered At</th>
+                  <th>Details</th>
+                </tr>
+              </thead>
+              <tbody id="adminSearchBody">
+                <tr><td colspan="7">Please enter keyword and click search.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="userListTab" class="tab-content">
+        <div class="section-title">
+          <div>
+            <div class="section-kicker">Accounts</div>
+            <h2>User List</h2>
+            <p>View users, blacklist customers, and promote customers to admin.</p>
+          </div>
+        </div>
+
+        <div class="content-card">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>User ID</th>
+                  <th>Avatar</th>
+                  <th>Role</th>
+                  <th>Full Name</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Blacklist Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="adminUserBody">
+                <tr><td colspan="8">Loading...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="blacklistTab" class="tab-content">
+        <div class="section-title">
+          <div>
+            <div class="section-kicker">Security</div>
+            <h2>Blacklist</h2>
+            <p>Review and manage blacklist records.</p>
+          </div>
+        </div>
+
+        <div class="content-card">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Blacklist ID</th>
+                  <th>User ID</th>
+                  <th>Full Name</th>
+                  <th>Email</th>
+                  <th>Reason</th>
+                  <th>Blacklisted At</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="adminBlacklistBody">
+                <tr><td colspan="7">Loading...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="profileTab" class="tab-content">
+        <div class="section-title">
+          <div>
+            <div class="section-kicker">Settings</div>
+            <h2>Profile</h2>
+            <p>View and update your account details.</p>
+          </div>
+        </div>
+
+        <div class="profile-card">
+          <div class="profile-top">
+            <img id="profileAvatarPreview" src="" alt="avatar">
+            <div>
+              <h3>Admin Profile</h3>
+              <p>Manage your account details, password, and profile image.</p>
+            </div>
+          </div>
+
+          <div id="profileViewBox">
+            <div class="profile-view-grid">
+              <strong>Full Name</strong><span id="viewFullName">-</span>
+              <strong>Email</strong><span id="viewEmail">-</span>
+              <strong>Phone</strong><span id="viewPhone">-</span>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="primary-btn" onclick="showProfileEditMode()">Edit Profile</button>
+            </div>
+          </div>
+
+          <form id="profileForm" style="display:none;" enctype="multipart/form-data">
+            <div class="profile-form-grid">
+              <div>
+                <label for="profileFullName">Full Name</label>
+                <input type="text" id="profileFullName" name="full_name" required>
+              </div>
+
+              <div>
+                <label for="profileEmail">Email</label>
+                <input type="email" id="profileEmail" name="email" required>
+              </div>
+
+              <div>
+                <label for="profilePhone">Phone</label>
+                <input type="text" id="profilePhone" name="phone" required>
+              </div>
+
+              <div>
+                <label for="profileAvatar">Profile Photo</label>
+                <input type="file" id="profileAvatar" name="avatar" accept="image/*">
+              </div>
+
+              <div>
+                <label for="currentPassword">Current Password</label>
+                <input type="password" id="currentPassword" name="current_password" required>
+              </div>
+
+              <div>
+                <label for="profilePassword">New Password</label>
+                <input type="password" id="profilePassword" name="password">
+              </div>
+
+              <div>
+                <label for="profileConfirmPassword">Confirm New Password</label>
+                <input type="password" id="profileConfirmPassword" name="confirm_password">
+              </div>
+            </div>
+
+            <div class="note-box">
+              Leave the new password fields empty if you only want to update your profile information.
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="primary-btn">Save Profile</button>
+              <button type="button" class="secondary-btn" onclick="hideProfileEditMode()">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="detailModal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Preview</h3>
+        <button id="closeModalBtn" type="button" class="close-btn">×</button>
+      </div>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <script src="js/common-auth.js?v=24"></script>
+  <script src="js/admin.js?v=24"></script>
+  <script src="js/ui-enhancements.js?v=5"></script>
+</body>
+</html>

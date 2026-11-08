@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login | Online Order System</title>
+  <link rel="stylesheet" href="css/auth.css?v=31" />
+</head>
+<body class="auth-body">
+  <div class="auth-shell">
+    <div class="auth-brand">
+      <div class="brand-badge">FOS</div>
+      <h2>Future Online Order System Sdn.Bhd</h2>
+      <p>Fast, secure, and simple ordering experience for admins and customers.</p>
+    </div>
+
+    <div class="auth-card reveal-card">
+      <div class="auth-card-top">
+        <span class="auth-chip">Welcome Back</span>
+        <h1>Login</h1>
+        <p>Sign in with your email and password to continue.</p>
+      </div>
+
+      <form id="loginForm" class="auth-form">
+        <div class="input-group">
+          <label for="loginEmail">Email</label>
+          <input type="email" id="loginEmail" name="email" placeholder="Enter your email" required />
+        </div>
+
+        <div class="input-group">
+          <label for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" name="password" placeholder="Enter your password" required />
+        </div>
+
+        <button type="submit" class="primary-btn auth-submit-btn">Login</button>
+      </form>
+
+      <div class="auth-links auth-links-stack">
+        <a href="signup.html">Create an account</a>
+        <a href="forgot-password.html">Forgot Password?</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/login.js?v=31"></script>
+  <script src="js/ui-enhancements.js?v=3"></script>
+</body>
+</html>

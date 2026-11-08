@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up | Online Order System</title>
+  <link rel="stylesheet" href="css/auth.css?v=31" />
+</head>
+<body class="auth-body">
+  <div class="auth-shell">
+    <div class="auth-brand">
+      <div class="brand-badge">NEW</div>
+      <h2>Create Your Account</h2>
+      <p>
+        Register your account to start using the online order system.
+        The first successful login will automatically become Manager Admin.
+      </p>
+    </div>
+
+    <div class="auth-card reveal-card">
+      <div class="auth-card-top">
+        <span class="auth-chip">Get Started</span>
+        <h1>Sign Up</h1>
+        <p>Fill in your details below to create a new account.</p>
+      </div>
+
+      <form id="signupForm" enctype="multipart/form-data" class="auth-form">
+        <div class="input-group">
+          <label for="signupFullName">Full Name</label>
+          <input type="text" id="signupFullName" name="full_name" placeholder="Enter full name" required />
+        </div>
+
+        <div class="input-group">
+          <label for="signupEmail">Email</label>
+          <input type="email" id="signupEmail" name="email" placeholder="Enter email address" required />
+        </div>
+
+        <div class="input-group">
+          <label for="signupPhone">Phone</label>
+          <input type="text" id="signupPhone" name="phone" placeholder="Enter phone number" required />
+        </div>
+
+        <div class="input-group">
+          <label for="signupAddress">Address</label>
+          <input type="text" id="signupAddress" name="address" placeholder="Enter address" required />
+        </div>
+
+        <div id="avatarWrap" class="input-group">
+          <label for="signupAvatar">Profile Photo</label>
+          <input type="file" id="signupAvatar" name="avatar" accept="image/*" required />
+          <small>Required for new account registration.</small>
+        </div>
+
+        <div class="input-group">
+          <label for="securityQuestion">Security Question</label>
+          <input type="text" id="securityQuestion" name="security_question" placeholder="Enter security question" required>
+        </div>
+
+        <div class="input-group">
+          <label for="securityAnswer">Security Answer</label>
+          <input type="text" id="securityAnswer" name="security_answer" placeholder="Enter security answer" required>
+        </div>
+
+        <div class="input-group">
+          <label for="signupPassword">Password</label>
+          <input type="password" id="signupPassword" name="password" placeholder="Enter password" required />
+        </div>
+
+        <div class="input-group">
+          <label for="signupConfirmPassword">Confirm Password</label>
+          <input type="password" id="signupConfirmPassword" name="confirm_password" placeholder="Confirm password" required />
+        </div>
+
+        <button type="submit" class="primary-btn auth-submit-btn">Create Account</button>
+      </form>
+
+      <div class="auth-links">
+        <a href="login.html">Back to Login</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/signup.js"></script>
+  <script src="js/ui-enhancements.js?v=3"></script>
+</body>
+</html>
